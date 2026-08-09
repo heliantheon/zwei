@@ -43,7 +43,7 @@ function getLocalIP() {
 }
 
 const localIP = getLocalIP();
-const apiBaseURL = `http://${localIP}:18000`;
+const apiBaseURL = `http://${localIP}:18000/api`;
 
 const envContent = `# 自动生成的 ${mode} 环境配置文件
 # 此文件由 scripts/setup-env.js 自动生成，请勿手动编辑
