@@ -34,19 +34,19 @@ export interface UpdatePreferencesRequest {
 
 // 获取所有偏好选项（无需登录）
 export async function getOptions(): Promise<OptionsResponse> {
-  return request<OptionsResponse>('/api/preferences');
+  return request<OptionsResponse>('/preferences');
 }
 
 // 获取用户偏好（需登录）
 export async function getUserPreferences(): Promise<UserPreferencesResponse> {
-  return request<UserPreferencesResponse>('/api/user/preference');
+  return request<UserPreferencesResponse>('/user/preference');
 }
 
 // 更新用户偏好（需登录）
 export async function updateUserPreferences(
   preferences: UpdatePreferencesRequest
 ): Promise<void> {
-  await request<void>('/api/user/preference', {
+  await request<void>('/user/preference', {
     method: 'PUT',
     body: JSON.stringify(preferences),
   });

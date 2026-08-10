@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro';
-import apiConfigFile, { getServiceUrl } from '../config/api.config';
+import apiConfigFile from '../config/api.config';
 
 // API配置
 interface ApiConfig {
@@ -41,7 +41,7 @@ async function doRefreshToken(): Promise<boolean> {
     if (!refreshToken) return false;
 
     const response = await Taro.request({
-      url: `${apiConfig.baseURL}/api/token`,
+      url: `${apiConfig.baseURL.replace(/\/$/, '')}/token`,
       method: 'POST',
       header: { 'Content-Type': 'application/x-www-form-urlencoded' },
       data: `grant_type=refresh_token&refresh_token=${encodeURIComponent(refreshToken)}`,
@@ -89,9 +89,8 @@ async function request<T>(
   url: string,
   options: RequestInit & { timeout?: number } = {}
 ): Promise<T> {
-  // 根据 URL 路径动态获取对应服务的 baseURL
-  const { baseUrl, servicePath } = getServiceUrl(url);
-  const fullUrl = `${baseUrl}${servicePath}`;
+  const servicePath = url.startsWith('/') ? url : `/${url}`;
+  const fullUrl = `${apiConfig.baseURL.replace(/\/$/, '')}${servicePath}`;
 
   // 使用自定义超时时间，如果没有则使用默认值
   const timeout = options.timeout ?? apiConfig.timeout;
@@ -100,7 +99,7 @@ async function request<T>(
   for (let attempt = 1; attempt <= apiConfig.retries; attempt++) {
     try {
       // 获取 token（token 接口不需要）
-      const token = url.includes('/auth/token') ? null : getToken();
+      const token = servicePath === '/token' ? null : getToken();
       const headers: any = {
         'Content-Type': 'application/json',
         ...(options.headers as any),
@@ -127,7 +126,7 @@ async function request<T>(
       }
 
       // 401 尝试刷新 token
-      if (response.statusCode === 401 && !url.includes('/auth/')) {
+      if (response.statusCode === 401 && servicePath !== '/token') {
         console.log('[API] Token 过期，尝试刷新...');
         const refreshed = await handleTokenRefresh();
         if (refreshed) {

@@ -64,7 +64,7 @@ export async function getRecipes(params?: {
   if (params?.offset) queryParams.append('offset', params.offset.toString());
 
   const queryString = queryParams.toString();
-  const url = `/api/recipes${queryString ? `?${queryString}` : ''}`;
+  const url = `/recipes${queryString ? `?${queryString}` : ''}`;
 
   return request<RecipeListItem[]>(url);
 }
@@ -77,10 +77,10 @@ export interface Category {
 
 // 获取所有分类（含中文名称和数量）
 export async function getCategories(): Promise<Category[]> {
-  return request<Category[]>('/api/recipes/categories/list');
+  return request<Category[]>('/recipes/categories/list');
 }
 
 // 获取菜谱详情
 export async function getRecipeDetail(recipeId: string): Promise<RecipeDetail> {
-  return request<RecipeDetail>(`/api/recipes/${recipeId}`);
+  return request<RecipeDetail>(`/recipes/${recipeId}`);
 }

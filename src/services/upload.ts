@@ -19,7 +19,7 @@ export async function uploadAvatar(filePath: string): Promise<string> {
     // 使用 prefix 告诉后端这是头像上传，后端会自动使用认证用户的 openid 生成路径
     // 这样可以防止前端传入错误的 openid 导致安全风险
     const uploadRes = await Taro.uploadFile({
-      url: `${apiConfig.API_BASE_URL}/api/upload/image`,
+      url: `${apiConfig.API_BASE_URL.replace(/\/$/, '')}/upload/image`,
       filePath: filePath,
       name: 'file',
       formData: {

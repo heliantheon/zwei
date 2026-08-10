@@ -57,7 +57,7 @@ async function requestToken(
   if (params.avatar) formData.append('avatar', params.avatar);
 
   const response = await Taro.request({
-    url: `${apiConfig.API_BASE_URL}/api/token`,
+    url: `${apiConfig.API_BASE_URL.replace(/\/$/, '')}/token`,
     method: 'POST',
     header: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: formData.toString(),
@@ -395,7 +395,7 @@ export async function fetchProfile(): Promise<UserInfo | null> {
 
   // 请求 profile 接口
   try {
-    const profile = await request<UserInfo>('/api/user/profile');
+    const profile = await request<UserInfo>('/user/profile');
     saveUserInfo(profile);
     return profile;
   } catch (error) {
@@ -427,7 +427,7 @@ export async function updateProfile(data: {
   }
 
   try {
-    const profile = await request<UserInfo>('/api/user/profile', {
+    const profile = await request<UserInfo>('/user/profile', {
       method: 'PUT',
       body: JSON.stringify(data),
     });
@@ -463,7 +463,7 @@ export async function updateIdpProfile(
   }
 
   try {
-    const profile = await request<UserInfo>(`/api/${idp}/profile`, {
+    const profile = await request<UserInfo>(`/${idp}/profile`, {
       method: 'POST',
       body: JSON.stringify({ phone_code: phoneCode }),
     });
@@ -502,7 +502,7 @@ export async function fetchStats(): Promise<StatsResponse | null> {
   }
 
   try {
-    const stats = await request<StatsResponse>('/api/stats');
+    const stats = await request<StatsResponse>('/stats');
     return stats;
   } catch (error) {
     console.error('[User] 获取统计数据失败:', error);

@@ -110,7 +110,7 @@ export interface ContextResponse {
 export async function getContext(
   location: LocationInfo
 ): Promise<ContextResponse> {
-  return request<ContextResponse>('/api/recommend/context', {
+  return request<ContextResponse>('/recommend/context', {
     method: 'POST',
     body: JSON.stringify({
       latitude: location.latitude,
@@ -294,7 +294,7 @@ export async function getRecommendations(
   limit: number = 6,
   excludeIds?: string[]
 ): Promise<RecommendResponse> {
-  return request<RecommendResponse>(`/api/recommend?limit=${limit}`, {
+  return request<RecommendResponse>(`/recommend?limit=${limit}`, {
     method: 'POST',
     body: JSON.stringify({
       latitude: location.latitude,
