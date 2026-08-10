@@ -2,24 +2,14 @@ import { defineConfig, type UserConfigExport } from '@tarojs/cli';
 import devConfig from './dev';
 import prodConfig from './prod';
 
-// 微信小程序 AppID
-// 本地开发：使用 touristappid（测试号）
-// 生产环境：通过环境变量 TARO_APP_WEAPP_APPID 或 CI/CD 配置
-const weappAppId = process.env.TARO_APP_WEAPP_APPID || 'touristappid';
 // 抖音小程序 AppID（与后端 config.toml 中的 idps.tt.appid 保持一致）
 const ttAppId = process.env.TARO_APP_TT_APPID || 'ttae6ed8d3300d352501';
+// 微信小程序已不作为默认发布目标；仅显式配置时保留手动构建能力
+const weappAppId = process.env.TARO_APP_WEAPP_APPID || '';
 // 支付宝小程序 AppID（与后端 config.toml 中的 idps.alipay.appid 保持一致）
 const alipayAppId = process.env.TARO_APP_ALIPAY_APPID || '';
 
-const ciPluginConfig: any = {
-  weapp: {
-    appid: weappAppId,
-    privateKeyPath: `key/private.${weappAppId}.key`,
-    setting: {
-      developer: process.env.WEAPP_DEVELOPER || 'heliannuuthus',
-    },
-  },
-};
+const ciPluginConfig: any = {};
 
 // 抖音小程序 CI 配置：只有当 appid、email 和 password 都配置时才启用
 if (ttAppId && process.env.TT_EMAIL && process.env.TT_PASSWORD) {
@@ -27,6 +17,17 @@ if (ttAppId && process.env.TT_EMAIL && process.env.TT_PASSWORD) {
     email: process.env.TT_EMAIL,
     password: process.env.TT_PASSWORD,
     appid: ttAppId,
+  };
+}
+
+// 微信小程序保留为手动 fallback，默认不参与 CI/CD
+if (weappAppId && process.env.WEAPP_PRIVATE_KEY) {
+  ciPluginConfig.weapp = {
+    appid: weappAppId,
+    privateKeyPath: `key/private.${weappAppId}.key`,
+    setting: {
+      developer: process.env.WEAPP_DEVELOPER || 'heliannuuthus',
+    },
   };
 }
 

@@ -15,6 +15,7 @@
   },
   "scripts": {
     "setup:env": "node scripts/setup-env.js",
+    "build": "pnpm build:tt",
     "build:weapp": "taro build --type weapp --mode production",
     "build:tt": "taro build --type tt --mode production",
     "build:alipay": "taro build --type alipay --mode production",
@@ -23,6 +24,7 @@
     "dev:tt": "node scripts/setup-env.js development && taro build --type tt --mode development --watch",
     "dev:alipay": "node scripts/setup-env.js development && taro build --type alipay --mode development --watch",
     "dev:h5": "node scripts/setup-env.js development && taro build --type h5 --mode development --watch",
+    "dev": "pnpm dev:tt",
     "weapp": "npm run dev:weapp",
     "tt": "npm run dev:tt",
     "alipay": "npm run dev:alipay",

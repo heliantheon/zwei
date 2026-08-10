@@ -1,15 +1,15 @@
-name: Deploy Mini Programs
+name: Deploy Douyin Mini Program
 
 on:
   push:
     branches: [master, main]
-    tags: ["v*"]
+    tags: ['v*']
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # tag 推送时：提交审核（需要审批保护）
-    # main 分支推送时：预览版（不需要审批）
+    # tag 推送时：提交抖音审核（需要审批保护）
+    # main 分支推送时：抖音预览版（不需要审批）
     # 注意：需要在 GitHub 仓库设置中为 production environment 配置审批保护
     # Settings -> Environments -> production -> Required reviewers
     if: |
@@ -30,8 +30,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "pnpm"
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -42,18 +42,6 @@ jobs:
       - name: Type check
         run: pnpm type:check
 
-      - name: Write private keys
-        run: |
-          mkdir -p key
-          # 微信小程序私钥
-          if [ -n "${{ secrets.WEAPP_PRIVATE_KEY }}" ]; then
-            echo "${{ secrets.WEAPP_PRIVATE_KEY }}" > key/private.${{ secrets.WEAPP_APPID }}.key
-          fi
-          # 支付宝小程序私钥
-          if [ -n "${{ secrets.ALIPAY_PRIVATE_KEY }}" ] && [ -n "${{ secrets.ALIPAY_APPID }}" ]; then
-            echo "${{ secrets.ALIPAY_PRIVATE_KEY }}" > key/private.${{ secrets.ALIPAY_APPID }}.key
-          fi
-
       - name: Get version info
         id: version
         run: |
@@ -61,7 +49,7 @@ jobs:
           TIMESTAMP=$(date +%Y%m%d-%H%M%S)
           COMMIT_SHA=$(git rev-parse --short HEAD)
           AUTO_VERSION="${TIMESTAMP}-${COMMIT_SHA}"
-          
+
           if [[ "${{ github.ref }}" == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}
             echo "is_release=true" >> $GITHUB_OUTPUT
@@ -69,7 +57,7 @@ jobs:
             VERSION="${AUTO_VERSION}"
             echo "is_release=false" >> $GITHUB_OUTPUT
           fi
-          
+
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "desc=CI 自动构建 ${VERSION}" >> $GITHUB_OUTPUT
           echo "Generated version: ${VERSION}"
@@ -86,16 +74,7 @@ jobs:
             console.log('Updated taroConfig:', pkg.taroConfig);
           "
 
-      # 合并到 main 分支：提交预览版
-      - name: Build and preview (微信小程序 - 预览版)
-        if: steps.version.outputs.is_release == 'false'
-        env:
-          TARO_APP_API_BASE_URL: ${{ vars.API_BASE_URL }}
-          TARO_APP_WEAPP_APPID: ${{ secrets.WEAPP_APPID }}
-          WEAPP_DEVELOPER: heliannuuthus
-        run: pnpm build:weapp --mode production --preview
-        continue-on-error: true
-
+      # 合并到 main 分支：提交抖音预览版
       - name: Build and preview (抖音小程序 - 预览版)
         if: steps.version.outputs.is_release == 'false'
         env:
@@ -111,30 +90,7 @@ jobs:
           fi
         continue-on-error: true
 
-      - name: Build and preview (支付宝小程序 - 预览版)
-        if: steps.version.outputs.is_release == 'false'
-        env:
-          TARO_APP_API_BASE_URL: ${{ vars.API_BASE_URL }}
-          TARO_APP_ALIPAY_APPID: ${{ secrets.ALIPAY_APPID }}
-          ALIPAY_TOOL_ID: ${{ secrets.ALIPAY_TOOL_ID }}
-        run: |
-          if [ -n "$TARO_APP_ALIPAY_APPID" ]; then
-            pnpm build:alipay --mode production --preview
-          else
-            echo "跳过支付宝小程序构建（未配置 ALIPAY_APPID）"
-          fi
-        continue-on-error: true
-
-      # 打 tag 后：提交代码审核（需要审批保护）
-      - name: Build and upload (微信小程序 - 提交审核)
-        if: steps.version.outputs.is_release == 'true'
-        env:
-          TARO_APP_API_BASE_URL: ${{ vars.API_BASE_URL }}
-          TARO_APP_WEAPP_APPID: ${{ secrets.WEAPP_APPID }}
-          WEAPP_DEVELOPER: heliannuuthus
-        run: pnpm build:weapp --mode production --upload
-        continue-on-error: true
-
+      # 打 tag 后：提交抖音代码审核（需要审批保护）
       - name: Build and upload (抖音小程序 - 提交审核)
         if: steps.version.outputs.is_release == 'true'
         env:
@@ -147,19 +103,5 @@ jobs:
             pnpm build:tt --mode production --upload
           else
             echo "跳过抖音小程序构建（未配置 TT_APPID）"
-          fi
-        continue-on-error: true
-
-      - name: Build and upload (支付宝小程序 - 提交审核)
-        if: steps.version.outputs.is_release == 'true'
-        env:
-          TARO_APP_API_BASE_URL: ${{ vars.API_BASE_URL }}
-          TARO_APP_ALIPAY_APPID: ${{ secrets.ALIPAY_APPID }}
-          ALIPAY_TOOL_ID: ${{ secrets.ALIPAY_TOOL_ID }}
-        run: |
-          if [ -n "$TARO_APP_ALIPAY_APPID" ]; then
-            pnpm build:alipay --mode production --upload
-          else
-            echo "跳过支付宝小程序构建（未配置 ALIPAY_APPID）"
           fi
         continue-on-error: true

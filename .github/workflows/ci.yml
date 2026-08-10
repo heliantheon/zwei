@@ -48,13 +48,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build WeApp
-        run: pnpm build:weapp
+      - name: Build Douyin mini program
+        run: pnpm build:tt
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: weapp-dist
+          name: tt-dist
           path: dist/
           retention-days: 7
-
