@@ -16,7 +16,7 @@ export default defineAppConfig({
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#E8503A',
-    navigationBarTitleText: 'Choosy',
+    navigationBarTitleText: 'Zwei',
     navigationBarTextStyle: 'white',
     backgroundColor: '#FFF9F5',
   },

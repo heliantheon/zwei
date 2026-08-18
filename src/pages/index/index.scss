@@ -53,6 +53,25 @@
     text-align: center;
     color: #fff;
 
+    .brand-mark {
+      width: 88rpx;
+      height: 88rpx;
+      display: block;
+      margin: 0 auto 8rpx;
+      padding: 10rpx;
+      border-radius: 24rpx;
+      background: #fff;
+    }
+
+    .brand-name {
+      display: block;
+      margin-bottom: 10rpx;
+      font-size: 24rpx;
+      font-weight: 600;
+      letter-spacing: 4rpx;
+      text-transform: uppercase;
+    }
+
     .banner-main-title {
       font-size: 52rpx;
       font-weight: bold;

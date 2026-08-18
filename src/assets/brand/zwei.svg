@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="zwei-title">
+  <title id="zwei-title">Zwei mark</title>
+  <g fill="none" stroke="#E8503A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="128" cy="128" r="88"/>
+  <path d="M70 82h104L82 174h104"/>
+  <path d="M82 66h92"/>
+  <path d="M82 190h92"/>
+  <circle cx="70" cy="82" r="10" fill="#E8503A" stroke="none"/>
+  <circle cx="186" cy="174" r="10" fill="#E8503A" stroke="none"/>
+  </g>
+</svg>
