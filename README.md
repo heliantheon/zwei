@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/brand/mark.svg" width="112" alt="Zwei logo" />
+  <img src="./assets/brand/hero-ice.png" width="256" alt="Zwei emblem suspended in a clear ice block" />
 </p>
 
 <h1 align="center">Zwei</h1>
