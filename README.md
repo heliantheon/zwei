@@ -1,338 +1,44 @@
-# Choosy 小程序项目文档
+<p align="center">
+  <img src="./assets/brand/hero-ice.png" width="256" alt="Zwei emblem suspended in a clear ice block" />
+</p>
 
-## 项目概述
+<h1 align="center">Zwei</h1>
 
-**Choosy** 是一个基于 Taro 4.x 和 Taro UI 的抖音小程序优先项目，主要解决"每天吃什么"的问题。通过推荐能力，提供智能菜品推荐和烹饪教程，帮助用户更便捷地决定每日饮食。
+<p align="center">
+  <strong>Make every meal easier to choose and worth looking forward to.</strong><br />
+  让每一餐更好选择，也更值得期待。
+</p>
 
-## 技术栈
+## Overview / 项目简介
 
-- **框架**: Taro 4.1.8
-- **UI 组件库**: Taro UI 3.2.1
-- **开发语言**: TypeScript
-- **样式预处理**: Sass
-- **构建工具**: Vite
-- **React 版本**: 18.0.0
-- **主小程序平台**: 抖音小程序（AppID: ttae6ed8d3300d352501）
-- **备用平台**: 微信/支付宝脚本保留为手动 fallback，不再作为默认 CI/CD 发布目标
+Zwei is a Taro mini-program for meal discovery, contextual recommendations, recipes, cooking guidance, favorites, history, shopping lists, and dietary preferences.
 
-## 核心功能模块
+Zwei 是一个以抖音小程序为默认目标的餐食推荐应用，提供场景化推荐、菜谱与烹饪指引、收藏、历史记录、购物清单和饮食偏好管理。
 
-### 1. AI 智能菜品推荐模块
+## Platforms
 
-#### 功能描述
+- Douyin/TikTok mini program is the default development and delivery target.
+- WeChat, Alipay, and H5 scripts remain available as manual fallback builds.
 
-通过 AI 分析用户偏好、历史记录、天气、时间等因素，智能推荐每日菜品。
-
-#### 功能点
-
-- **个性化推荐**
-  - 基于用户饮食偏好、忌口、过敏信息
-  - 学习用户历史选择，优化推荐算法
-  - 考虑营养均衡和健康需求
-- **场景化推荐**
-  - 根据天气推荐（如雨天推荐热汤）
-  - 根据时段推荐（早餐/午餐/晚餐/夜宵）
-  - 根据人数推荐（单人/多人）
-- **交互方式**
-  - 卡片式展示，支持滑动切换
-  - 支持"换一批"快速刷新
-  - 支持收藏和"不感兴趣"功能
-- **AI 能力**
-  - 自然语言理解用户需求
-  - 生成推荐理由和说明
-  - 支持语音输入
-
-#### 页面规划
-
-- `pages/recommend/index` - 智能推荐主页
-- `pages/recommend/detail` - 菜品详情页
-
-### 2. 菜谱与烹饪教程模块
-
-#### 功能描述
-
-提供详细菜谱和分步烹饪教程，帮助用户自己动手做菜。
-
-#### 功能点
-
-- **菜谱展示**
-  - 高清美食图片展示
-  - 详细食材清单（含用量）
-  - 烹饪时间、难度、口味标签
-  - 营养信息展示
-- **分步教程**
-  - 图文并茂的步骤说明
-  - 视频教程（可选）
-  - 关键步骤提示
-  - 常见问题解答
-- **实用功能**
-  - 食材清单一键加入购物车
-  - 烹饪计时器功能
-  - 收藏与分享功能
-  - 用户评价与评分
-
-#### 页面规划
-
-- `pages/recipe/index` - 菜谱列表页
-- `pages/recipe/detail` - 菜谱详情页
-- `pages/recipe/cooking` - 烹饪步骤页
-- `pages/recipe/search` - 菜谱搜索页
-
-### 3. 用户中心模块
-
-#### 功能描述
-
-用户信息管理、偏好设置、历史记录等。
-
-#### 功能点
-
-- **用户信息**
-  - 个人资料管理
-  - 饮食偏好设置（口味、忌口、过敏）
-  - 营养目标设置
-- **历史记录**
-  - 浏览历史
-  - 收藏列表
-  - 订单历史
-- **个性化设置**
-  - 推荐偏好调整
-  - 通知设置
-  - 隐私设置
-
-#### 页面规划
-
-- `pages/profile/index` - 个人中心
-- `pages/profile/settings` - 设置页
-- `pages/profile/preferences` - 偏好设置
-
-## AI 能力集成
-
-### AI 服务接口规划
-
-1. **菜品推荐 API**
-   - 输入：用户偏好、场景信息
-   - 输出：推荐菜品列表及理由
-
-### AI 交互设计
-
-- **智能推荐**：基于用户历史、天气、时间等因素智能推荐
-- **推荐理由**：为每个推荐菜品生成个性化推荐理由
-- **学习能力**：持续学习用户偏好，优化推荐算法
-
-## UI/UX 设计理念
-
-### 设计原则
-
-1. **绚丽视觉**
-   - 高质量美食图片
-   - 渐变与动画效果
-   - 卡片式布局
-   - 丰富的视觉层次
-
-2. **人性化交互**
-   - 简洁直观的操作流程
-   - 流畅的动画过渡
-   - 清晰的信息层级
-   - 友好的错误提示
-
-3. **个性化体验**
-   - 根据用户行为调整界面
-   - 个性化推荐展示
-   - 自定义主题（可选）
-
-### 设计规范
-
-- **色彩**：以暖色调为主（橙、红、黄），营造食欲感
-- **字体**：清晰易读，重要信息突出
-- **图标**：统一风格，语义明确
-- **间距**：合理留白，提升可读性
-
-## 项目结构规划
-
-```
-src/
-├── app.ts                 # 应用入口
-├── app.config.ts          # 应用配置
-├── app.scss              # 全局样式
-├── pages/                # 页面目录
-│   ├── index/            # 首页
-│   ├── recommend/        # 智能推荐模块
-│   ├── recipe/           # 菜谱模块
-│   └── profile/          # 用户中心
-├── components/           # 公共组件
-│   ├── FoodCard/         # 菜品卡片组件
-│   ├── RecipeCard/       # 菜谱卡片组件
-│   └── Typewriter/       # 打字机效果组件
-├── services/             # API 服务
-│   ├── recipe.ts         # 菜谱服务接口
-│   ├── recommend.ts     # 推荐服务接口
-│   └── user.ts           # 用户服务接口
-├── utils/                # 工具函数
-│   ├── request.ts        # 请求封装
-│   ├── storage.ts        # 本地存储
-│   └── common.ts         # 通用工具
-├── hooks/                # 自定义 Hooks
-│   └── useRecommend.ts   # 推荐相关 Hook
-└── types/                # TypeScript 类型定义
-    ├── recipe.ts         # 菜谱类型
-    └── user.ts           # 用户类型
-```
-
-## 数据模型规划
-
-### 菜品数据模型
-
-```typescript
-interface Dish {
-  id: string;
-  name: string;
-  image: string;
-  description: string;
-  tags: string[]; // 标签：如"川菜"、"辣"、"素食"
-  difficulty: 'easy' | 'medium' | 'hard';
-  cookingTime: number; // 分钟
-  calories: number;
-  ingredients: Ingredient[];
-  aiReason?: string; // AI 推荐理由
-}
-```
-
-### 菜谱数据模型
-
-```typescript
-interface Recipe {
-  id: string;
-  dishId: string;
-  steps: RecipeStep[];
-  tips: string[];
-  nutrition: NutritionInfo;
-  videoUrl?: string;
-}
-```
-
-## 开发计划建议
-
-### 第一阶段：基础功能
-
-1. 首页设计与实现
-2. 菜品推荐基础功能
-3. 菜谱展示功能
-
-### 第二阶段：AI 集成
-
-1. AI 推荐服务接口对接
-2. 智能推荐算法优化
-3. 用户偏好学习与推荐优化
-
-### 第三阶段：优化与完善
-
-1. 性能优化
-2. 用户体验优化
-3. 数据分析与反馈
-
-## 环境变量配置
-
-项目使用 Taro 的环境模式配置，支持通过 `.env.development` 和 `.env.production` 文件管理不同环境的配置。
-
-### 环境变量文件
-
-- `.env.development` - 开发环境配置（自动生成，无需手动创建）
-- `.env.production` - 生产环境配置（可选，如不配置则使用默认值）
-
-### 可用环境变量
-
-所有环境变量必须以 `TARO_APP_` 开头：
-
-- `TARO_APP_API_BASE_URL` - API 基础 URL
-  - 开发环境：自动检测本地 IP（如 `http://172.29.213.233:18000`）
-  - 生产环境：`https://choosy.heliannuuthus.com`
-- `TARO_APP_WEAPP_APPID` - 微信小程序 AppID（可选）
-- `TARO_APP_TT_APPID` - 抖音小程序 AppID（可选）
-- `TARO_APP_ALIPAY_APPID` - 支付宝小程序 AppID（可选）
-
-### 使用方法
-
-参考 [taro-playground](https://github.com/wuba/taro-playground) 的简洁命令风格，项目支持以下构建命令：
-
-#### 开发模式（自动生成环境变量，watch 模式）
+## Development
 
 ```bash
-# 微信小程序开发
-npm run weapp
-# 或
-npm run dev:weapp
-
-# 抖音小程序开发
-npm run tt
-# 或
-npm run dev:tt
-
-# 支付宝小程序开发
-npm run alipay
-# 或
-npm run dev:alipay
-
-# H5 开发
-npm run h5
-# 或
-npm run dev:h5
+pnpm install
+pnpm dev
+pnpm dev:tt
+pnpm dev:weapp
+pnpm dev:alipay
+pnpm dev:h5
 ```
 
-#### 生产构建
+Environment files are prepared by `scripts/setup-env.js`. All public variables use the `TARO_APP_` prefix.
+
+## Verification
 
 ```bash
-# 微信小程序生产构建
-npm run build:weapp
-
-# 抖音小程序生产构建
-npm run build:tt
-
-# 支付宝小程序生产构建
-npm run build:alipay
-
-# H5 生产构建
-npm run build:h5
+pnpm type:check
+pnpm format:check
+pnpm build
 ```
 
-#### 手动设置环境变量
-
-```bash
-# 手动生成开发环境变量文件
-npm run setup:env
-
-# 或指定模式
-npm run setup:env production
-```
-
-#### 自定义环境变量
-
-1. 创建 `.env.development` 或 `.env.production` 文件
-2. 添加以 `TARO_APP_` 开头的环境变量
-3. 运行构建命令时会自动加载对应环境的配置
-
-```bash
-# 示例：创建自定义环境
-echo "TARO_APP_API_BASE_URL=https://api.example.com" > .env.uat
-npm run build:weapp -- --mode uat
-```
-
-#### 环境变量优先级
-
-1. `.env.{mode}` 文件中的配置（如 `.env.development`）
-2. `process.env` 中的环境变量（CI/CD 环境）
-3. `config/index.ts` 中的默认值
-
-更多信息请参考：
-
-- [Taro 环境变量文档](https://docs.taro.zone/docs/envs)
-- [Taro 环境模式配置文档](https://docs.taro.zone/docs/env-mode-config)
-- [taro-playground 项目](https://github.com/wuba/taro-playground)
-
-## 注意事项
-
-1. **小程序限制**：注意微信小程序的 API 限制和审核规范
-2. **性能优化**：图片懒加载、列表虚拟滚动等
-3. **用户体验**：加载状态、错误处理、离线支持
-4. **数据安全**：用户隐私保护、数据加密
-5. **AI 成本**：合理控制 API 调用频率，考虑缓存策略
-6. **环境变量**：`.env.*` 文件已添加到 `.gitignore`，不会提交到仓库
+API access belongs in `src/services`; pages and components must preserve loading, empty, failure, narrow-screen, touch-target, and weak-network states.

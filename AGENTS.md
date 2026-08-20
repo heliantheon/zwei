@@ -1,6 +1,6 @@
 # Zwei
 
-Zwei（Choosy）是基于 Taro 4、React 和 TypeScript 的多端菜品推荐应用，默认面向抖音小程序；微信、支付宝和 H5 构建作为按需兼容目标。
+Zwei 是基于 Taro 4、React 和 TypeScript 的多端菜品推荐应用，默认面向抖音小程序；微信、支付宝和 H5 构建作为按需兼容目标。
 
 ## 技术栈
 

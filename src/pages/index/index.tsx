@@ -5,6 +5,7 @@ import Taro from '@tarojs/taro';
 import { getBanners, getHotRecipes, BannerItem } from '../../services/home';
 import { RecipeListItem } from '../../services/recipe';
 import RecipeCard from '../../components/RecipeCard/index';
+import zweiMark from '../../assets/brand/zwei.svg';
 import './index.scss';
 
 // 骨架屏组件
@@ -137,6 +138,8 @@ const Index = () => {
       ) : (
         <View className="banner-section">
           <View className="banner-content">
+            <Image src={zweiMark} className="brand-mark" mode="aspectFit" />
+            <Text className="brand-name">Zwei</Text>
             <Text className="banner-main-title">今天吃什么？</Text>
             <Text className="banner-subtitle">为你精选今日美食</Text>
             <View className="banner-button" onClick={navigateToRecommend}>

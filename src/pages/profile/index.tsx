@@ -273,7 +273,7 @@ const Profile = () => {
             className="menu-item"
             onClick={() => {
               Taro.showModal({
-                title: 'Choosy',
+                title: 'Zwei',
                 content: '让每一餐都值得期待 ✨\n\n版本：1.0.0',
                 showCancel: false,
                 confirmText: '知道了',
@@ -300,7 +300,7 @@ const Profile = () => {
       )}
 
       <View className="footer">
-        <Text className="footer-text">Choosy · 懂你的美食助手</Text>
+        <Text className="footer-text">Zwei · 懂你的美食助手</Text>
         <Text className="footer-version">v1.0.0</Text>
       </View>
     </View>

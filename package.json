@@ -1,8 +1,8 @@
 {
-  "name": "myApp",
+  "name": "zwei",
   "version": "1.0.0",
   "private": true,
-  "description": "烹饪项目",
+  "description": "Zwei 场景化餐食推荐与菜谱小程序",
   "taroConfig": {
     "version": "1.0.0",
     "desc": "CI 自动构建"

@@ -84,7 +84,7 @@ const Help = () => {
 
       {/* 底部 */}
       <View className="footer">
-        <Text className="footer-text">感谢您帮助 Choosy 变得更好 💕</Text>
+        <Text className="footer-text">感谢您帮助 Zwei 变得更好 💕</Text>
       </View>
     </View>
   );
