@@ -17,9 +17,10 @@ export interface ApiConfigExport {
   API_RETRIES: number;
 }
 
-// 网关公开的 Zwei API 根路径。业务请求只传资源路径，不再携带服务名前缀。
+// 网关公开的 Ambrosia API 根路径。业务请求只传资源路径，不再携带服务名前缀。
 export const API_ENDPOINT =
-  process.env.TARO_APP_API_ZWEI_URL || 'https://zwei.heliannuuthus.com/api';
+  process.env.TARO_APP_API_AMBROSIA_URL ||
+  'https://ambrosia.heliannuuthus.com/api';
 
 const apiConfigExport: ApiConfigExport = {
   // Taro 会自动将 .env.* 文件中 TARO_APP_* 开头的变量注入到 process.env
